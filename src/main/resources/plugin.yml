@@ -10,6 +10,8 @@ prefix: MiB
 description: A mod that adds abyss effects
 
 commands:
+  events:
+    description: Commands for Mine in Abyss events
   curseon:
     description: Turn on the curse of ascension
   curseoff:

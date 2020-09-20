@@ -5,6 +5,8 @@ import com.derongan.minecraft.mineinabyss.ascension.AscensionListener
 import com.derongan.minecraft.mineinabyss.commands.AscensionCommandExecutor
 import com.derongan.minecraft.mineinabyss.commands.GUICommandExecutor
 import com.derongan.minecraft.mineinabyss.configuration.PlayerDataConfig
+import com.derongan.minecraft.mineinabyss.events.EventCommands
+import com.derongan.minecraft.mineinabyss.events.bosses.EventBossListener
 import com.derongan.minecraft.mineinabyss.geary.AbyssLocationSystem
 import com.derongan.minecraft.mineinabyss.geary.DepthMeter
 import com.derongan.minecraft.mineinabyss.player.PlayerListener
@@ -75,11 +77,13 @@ class MineInAbyss : JavaPlugin() {
         registerEvents(
                 GuiListener(this),
                 PlayerListener,
-                AscensionListener
+                AscensionListener,
+                EventBossListener
         )
         //register command executors
         AscensionCommandExecutor
         GUICommandExecutor
+        EventCommands
     }
 
     private fun getGrapplingHookRecipe(grapplingRecipeKey: NamespacedKey): ShapedRecipe {
