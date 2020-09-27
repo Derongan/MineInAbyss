@@ -1,6 +1,6 @@
-package com.derongan.minecraft.mineinabyss.events
+package com.derongan.minecraft.mineinabyss.camelot
 
-import com.derongan.minecraft.mineinabyss.events.bosses.BossData
+import com.derongan.minecraft.mineinabyss.camelot.bosses.BossData
 import com.derongan.minecraft.mineinabyss.mineInAbyss
 import com.mineinabyss.idofront.commands.arguments.intArg
 import com.mineinabyss.idofront.commands.arguments.stringArg

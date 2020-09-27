@@ -1,18 +1,21 @@
-package com.derongan.minecraft.mineinabyss.events.bosses
+package com.derongan.minecraft.mineinabyss.camelot.bosses
 
-import com.derongan.minecraft.mineinabyss.events.Events
+import com.derongan.minecraft.mineinabyss.camelot.Events
+import com.derongan.minecraft.mineinabyss.configuration.MineInAbyssMainConfig
 import com.google.common.util.concurrent.AtomicDouble
 import com.mineinabyss.idofront.messaging.color
 import org.bukkit.Bukkit
+import org.bukkit.entity.LivingEntity
+import org.bukkit.entity.Snowball
 import org.bukkit.event.EventHandler
 import org.bukkit.event.EventPriority
 import org.bukkit.event.Listener
 import org.bukkit.event.entity.EntityDamageByEntityEvent
 import org.bukkit.event.entity.PlayerDeathEvent
+import org.bukkit.event.entity.ProjectileHitEvent
 import kotlin.math.roundToInt
 
 object EventBossListener : Listener {
-
     @EventHandler
     fun onDamage(e: EntityDamageByEntityEvent) {
         Events.registedBosses[e.entity.uniqueId]
@@ -47,11 +50,24 @@ object EventBossListener : Listener {
 
         Events.registedBosses -= player.uniqueId
         e.deathMessage = ("&c&o${player.killer?.displayName}&c&o got the final blow. &7&o" +
-                when(Events.registedBosses.size){
+                when (Events.registedBosses.size) {
                     0 -> "No more remain."
                     1 -> "One more remains."
                     else -> "${Events.registedBosses.size} others remain."
                 }).color()
     }
 
+    @EventHandler
+    fun damagingSnowballs(e: ProjectileHitEvent) {
+        val snowball = e.entity as? Snowball ?: return
+        val hit = e.hitEntity as? LivingEntity ?: return
+        hit.damage(snowball.item.itemMeta?.lore?.find { it.startsWith("Damage: ") }
+                ?.removePrefix("Damage: ")?.toDouble() ?: 0.0)
+    }
+
+    @EventHandler(priority = EventPriority.HIGHEST)
+    fun disableDeathMessagesInWorld(e: PlayerDeathEvent) {
+        if (e.entity.world.name in MineInAbyssMainConfig.data.disableDeathMessagesIn)
+            e.deathMessage = null
+    }
 }

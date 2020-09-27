@@ -2,11 +2,11 @@ package com.derongan.minecraft.mineinabyss
 
 import com.derongan.minecraft.guiy.GuiListener
 import com.derongan.minecraft.mineinabyss.ascension.AscensionListener
+import com.derongan.minecraft.mineinabyss.camelot.EventCommands
+import com.derongan.minecraft.mineinabyss.camelot.bosses.EventBossListener
 import com.derongan.minecraft.mineinabyss.commands.AscensionCommandExecutor
 import com.derongan.minecraft.mineinabyss.commands.GUICommandExecutor
 import com.derongan.minecraft.mineinabyss.configuration.PlayerDataConfig
-import com.derongan.minecraft.mineinabyss.events.EventCommands
-import com.derongan.minecraft.mineinabyss.events.bosses.EventBossListener
 import com.derongan.minecraft.mineinabyss.geary.AbyssLocationSystem
 import com.derongan.minecraft.mineinabyss.geary.DepthMeter
 import com.derongan.minecraft.mineinabyss.player.PlayerListener

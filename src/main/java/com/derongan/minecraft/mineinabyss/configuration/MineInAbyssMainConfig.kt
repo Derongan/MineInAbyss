@@ -25,6 +25,7 @@ internal object MineInAbyssMainConfig : IdofrontConfig<MineInAbyssMainConfig.Dat
 
     @Serializable
     class Data(
+            val disableDeathMessagesIn: MutableList<String> = mutableListOf(),
             val storage: Storage,
             val layers: List<LayerImpl>//TODO way of changing the serializer from service
     )

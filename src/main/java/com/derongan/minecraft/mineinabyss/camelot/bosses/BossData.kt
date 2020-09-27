@@ -1,4 +1,4 @@
-package com.derongan.minecraft.mineinabyss.events.bosses
+package com.derongan.minecraft.mineinabyss.camelot.bosses
 
 import com.google.common.util.concurrent.AtomicDouble
 import java.util.*
