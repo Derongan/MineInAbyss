@@ -5,7 +5,10 @@ import com.derongan.minecraft.mineinabyss.configuration.MineInAbyssMainConfig
 import com.google.common.util.concurrent.AtomicDouble
 import com.mineinabyss.idofront.messaging.color
 import org.bukkit.Bukkit
+import org.bukkit.Material
+import org.bukkit.enchantments.Enchantment
 import org.bukkit.entity.LivingEntity
+import org.bukkit.entity.Player
 import org.bukkit.entity.Snowball
 import org.bukkit.event.EventHandler
 import org.bukkit.event.EventPriority
@@ -13,6 +16,7 @@ import org.bukkit.event.Listener
 import org.bukkit.event.entity.EntityDamageByEntityEvent
 import org.bukkit.event.entity.PlayerDeathEvent
 import org.bukkit.event.entity.ProjectileHitEvent
+import org.bukkit.event.entity.ProjectileLaunchEvent
 import kotlin.math.roundToInt
 
 object EventBossListener : Listener {
@@ -69,5 +73,21 @@ object EventBossListener : Listener {
     fun disableDeathMessagesInWorld(e: PlayerDeathEvent) {
         if (e.entity.world.name in MineInAbyssMainConfig.data.disableDeathMessagesIn)
             e.deathMessage = null
+    }
+
+    @EventHandler
+    fun infiniteSnowballs(e: ProjectileLaunchEvent) {
+        val snowball = e.entity as? Snowball ?: return
+        val shooter = (snowball.shooter as? Player) ?: return
+        val meta = snowball.item.itemMeta ?: return
+        if (meta.getEnchantLevel(Enchantment.ARROW_INFINITE) > 0) {
+            shooter.inventory.itemInMainHand.takeIf { it.type == Material.SNOWBALL }?.apply {
+                amount = 16
+                shooter.inventory.setItemInMainHand(this)
+            } ?: shooter.inventory.itemInOffHand.takeIf { it.type == Material.SNOWBALL }?.apply {
+                amount = 16
+                shooter.inventory.setItemInOffHand(this)
+            }
+        }
     }
 }
