@@ -22,9 +22,12 @@ import kotlin.math.roundToInt
 object EventBossListener : Listener {
     @EventHandler
     fun onDamage(e: EntityDamageByEntityEvent) {
+        val uuid = e.damager.uniqueId
+        if(uuid in Events.registedBosses ||
+                uuid in Events.ignoredDamagers) return
         Events.registedBosses[e.entity.uniqueId]
                 ?.scores
-                ?.getOrPut(e.damager.uniqueId, { AtomicDouble(0.0) })
+                ?.getOrPut(uuid, { AtomicDouble(0.0) })
                 ?.addAndGet(e.damage)
     }
 

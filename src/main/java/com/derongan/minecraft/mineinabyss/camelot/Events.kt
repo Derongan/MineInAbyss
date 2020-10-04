@@ -5,4 +5,5 @@ import java.util.*
 
 object Events {
     val registedBosses = mutableMapOf<UUID, BossData>()
+    val ignoredDamagers = mutableSetOf<UUID>()
 }
